@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { supabase } from '../lib/supabase'; // Conexión relativa correcta
+export const dynamic = 'force-dynamic';
 
 //export const revalidate = 0; // Fuerza al servidor a leer datos frescos sin guardarlos en caché
 
