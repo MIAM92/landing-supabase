@@ -12,15 +12,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Comentamos esto para que la página siempre se vea clara */
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
+*/
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Cambiado para usar la fuente que definiste en layout.tsx */
+  font-family: var(--font-geist-sans), Arial, sans-serif; 
 }

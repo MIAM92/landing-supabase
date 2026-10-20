@@ -1,8 +1,8 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  // cacheComponents: true,  <-- Línea eliminada o comentada
+  // partialPrefetching: true,  <-- Línea eliminada o comentada
 };
 
 export default nextConfig;
