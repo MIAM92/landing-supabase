@@ -1,20 +1,22 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { cookies } from 'next/headers';
-import { supabase } from '../lib/supabase';
-
+import { getSupabase } from '../lib/supabase';
 export const dynamic = 'force-dynamic';
 
 async function ContenidoCafes() {
   await cookies();
   
+
+  const supabase = getSupabase();
+  
   const { data: productos } = await supabase.from('productos').select('*');
 
   return (
-    // 1. Cambiamos a CSS Grid: 1 columna en móvil, 2 en tablet (md), 3 en escritorio (lg)
+
     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mx-auto px-4">
       {productos?.map((item: any) => (
-        // 2. Tarjeta vertical (flex-col) con efectos de hover más suaves
+        // Tarjeta vertical (flex-col) con efectos de hover más suaves
         <div key={item.id} className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 bg-white flex flex-col h-full">
           
           {/* Imagen arriba, ocupando todo el ancho de la tarjeta */}
@@ -41,8 +43,8 @@ async function ContenidoCafes() {
             {/* Precio y Botón siempre al fondo de la tarjeta */}
             <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
               <span className="text-amber-700 font-bold text-xl">${item.precio} <span className="text-sm font-normal text-gray-500">USD</span></span>
-              <Link 
-                href={`/productos/${item.slug}`} 
+              <Link
+                href={`/productos/${item.slug}`}
                 className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition-colors"
               >
                 Ver detalles
