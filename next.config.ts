@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // cacheComponents: true,  <-- Línea eliminada o comentada
-  // partialPrefetching: true,  <-- Línea eliminada o comentada
+    cacheComponents: true,
+  // partialPrefetching: true,
 
   // ✅ Workaround para evitar que el build se quede colgado en Vercel
   // @ts-expect-error: Propiedad no documentada en los tipos oficiales pero necesaria para Vercel
