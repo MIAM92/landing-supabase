@@ -23,7 +23,7 @@ async function ContenidoCafes() {
           <div className="w-full h-56 relative bg-gray-100 shrink-0">
             <img
               src={item.imagen_url}
-              alt={item.nombre} 
+              alt={item.nombre}
               className="w-full h-full object-cover"
             />
           </div>
