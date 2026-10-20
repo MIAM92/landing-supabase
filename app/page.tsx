@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { unstable_noStore as noStore } from 'next/cache';
 import { supabase } from '../lib/supabase';
 
-export const dynamic = 'force-dynamic';
-
 async function ContenidoCafes() {
+  // Fuerza a Next.js a tratar esta ruta como dinámica en el build
+  noStore();
+  
   const { data: productos } = await supabase.from('productos').select('*');
 
   return (
