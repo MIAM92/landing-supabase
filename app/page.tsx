@@ -1,21 +1,24 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { connection } from 'next/navigation';
+import { headers } from 'next/headers';
 import { supabase } from '../lib/supabase';
 
 async function ContenidoCafes() {
-  // Esto le indica a Next.js 16 que la ruta es dinámica durante el build de Vercel
-  await connection();
+  // Esto obliga a Next.js a tratar la ruta como dinámica de manera infalible
+  await headers();
   
   const { data: productos } = await supabase.from('productos').select('*');
 
   return (
     <section className="flex flex-col gap-6 w-full max-w-4xl mx-auto">
-      {productos?.map((item) => (
+      {productos?.map((item: any) => (
         <div key={item.id} className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col sm:flex-row p-4 gap-6 items-center w-full">
+          {/* Imagen a la izquierda */}
           <div className="w-full sm:w-48 h-48 flex-shrink-0">
             <img src={item.imagen_url} alt={item.nombre} className="w-full h-full object-cover rounded-lg" />
           </div>
+          
+          {/* Información a la derecha */}
           <div className="flex flex-col justify-between flex-grow w-full text-left">
             <div>
               <span className="text-xs font-semibold uppercase bg-amber-100 text-amber-800 px-2 py-1 rounded">
@@ -25,6 +28,7 @@ async function ContenidoCafes() {
               <p className="text-sm text-gray-500 mt-1">{item.origen}</p>
               <p className="text-gray-600 mt-2 text-sm max-w-xl">{item.descripcion}</p>
             </div>
+            
             <div className="flex items-center justify-between mt-4 pt-2 border-t border-gray-100">
               <span className="text-amber-700 font-bold text-xl">\${item.precio} USD</span>
               <Link href={`/productos/${item.slug}`} className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition">
