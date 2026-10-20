@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase'; 
 
 export default async function CategoriaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  
+  const supabase = getSupabase(); 
   
   const { data: productos } = await supabase
     .from('productos')
@@ -20,7 +22,7 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
                 <div key={p.id} className="p-4 border rounded-lg flex justify-between items-center bg-white shadow-sm">
                     <div>
                   <h2 className="text-xl font-bold text-gray-800">{p.nombre}</h2>
-                    <p className="text-gray-500 text-sm">{p.origen} • \${p.precio} USD</p>
+                    <p className="text-gray-500 text-sm">{p.origen} • ${p.precio} USD</p>
                   </div>
                   <Link href={`/productos/${p.slug}`} className="bg-amber-700 text-white px-4 py-2 rounded-lg text-sm hover:bg-amber-800 transition">
                     Ver Grano

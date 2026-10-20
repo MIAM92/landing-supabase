@@ -3,10 +3,10 @@ import { Suspense } from 'react';
 import { cookies } from 'next/headers';
 import { getSupabase } from '../lib/supabase';
 
-// ✅ Componente separado que solo lee cookies
+// ✅ Componente "hoja" que SOLO lee cookies. Su único trabajo es este.
 async function CookieReader() {
   await cookies();
-  return null; // No renderiza nada visible
+  return null; // No renderiza nada visual
 }
 
 async function ContenidoCafes() {
@@ -15,7 +15,7 @@ async function ContenidoCafes() {
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mx-auto px-4">
-      {/* ✅ Envolvemos el lector de cookies en su propio Suspense */}
+      {/* ✅ Envolvemos el lector de cookies en su PROPIO Suspense, lo más cerca posible */}
       <Suspense fallback={<div className="col-span-full text-center p-4 text-sm text-gray-500">Verificando sesión...</div>}>
         <CookieReader />
       </Suspense>
