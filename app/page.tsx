@@ -1,33 +1,36 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { headers } from 'next/headers';
 import { supabase } from '../lib/supabase';
 
 async function ContenidoCafes() {
-  // Esto obliga a Next.js 15 a volver dinámica la página durante el build
-  await headers();
-  
   const { data: productos } = await supabase.from('productos').select('*');
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <section className="flex flex-col gap-6 w-full max-w-4xl mx-auto">
       {productos?.map((item) => (
-        <div key={item.id} className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col justify-between">
-          <div>
-            <img src={item.imagen_url} alt={item.nombre} className="w-full h-48 object-cover" />
-            <div className="p-4">
+        <div key={item.id} className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col sm:flex-row p-4 gap-6 items-center w-full">
+          {/* Imagen a la izquierda */}
+          <div className="w-full sm:w-48 h-48 flex-shrink-0">
+            <img src={item.imagen_url} alt={item.nombre} className="w-full h-full object-cover rounded-lg" />
+          </div>
+          
+          {/* Información a la derecha */}
+          <div className="flex flex-col justify-between flex-grow w-full text-left">
+            <div>
               <span className="text-xs font-semibold uppercase bg-amber-100 text-amber-800 px-2 py-1 rounded">
                 {item.categoria}
               </span>
-              <h2 className="text-xl font-bold mt-2 text-gray-800">{item.nombre}</h2>
-              <p className="text-sm text-gray-500">{item.origen}</p>
-              <p className="text-amber-700 font-bold mt-2">\${item.precio} USD</p>
+              <h2 className="text-2xl font-bold mt-2 text-gray-800">{item.nombre}</h2>
+              <p className="text-sm text-gray-500 mt-1">{item.origen}</p>
+              <p className="text-gray-600 mt-2 text-sm max-w-xl">{item.descripcion}</p>
             </div>
-          </div>
-          <div className="p-4 pt-0">
-            <Link href={`/productos/${item.slug}`} className="block text-center bg-gray-900 text-white py-2 rounded-lg text-sm hover:bg-gray-800 transition">
-              Ver detalles del grano
-            </Link>
+            
+            <div className="flex items-center justify-between mt-4 pt-2 border-t border-gray-100">
+              <span className="text-amber-700 font-bold text-xl">\${item.precio} USD</span>
+              <Link href={`/productos/${item.slug}`} className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition">
+                Ver detalles del grano
+              </Link>
+            </div>
           </div>
         </div>
       ))}
