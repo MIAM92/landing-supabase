@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import { cookies } from 'next/headers';
 import { getSupabase } from '../lib/supabase';
+export const instant = false;
 export const dynamic = 'force-dynamic';
 
 async function ContenidoCafes() {
